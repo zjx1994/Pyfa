@@ -402,7 +402,7 @@ class SkillTreeView(wx.Panel):
             setattr(self, "{}Btn".format(name.lower()), btn)
             btn.Enable(True)
             btn.SetToolTip("%s skills %s clipboard" % (name, direction))
-            bSizerButtons.Add(btn, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_RIGHT | wx.ALL, 5)
+            bSizerButtons.Add(btn, 0, wx.ALL, 5)
             btn.Bind(wx.EVT_BUTTON, getattr(self, "{}Skills".format(name.lower())))
 
         pmainSizer.Add(bSizerButtons, 0, wx.EXPAND, 5)
@@ -833,7 +833,7 @@ class APIView(wx.Panel):
     def fetchSkills(self, evt):
         sChar = Character.getInstance()
         char = self.charEditor.entityEditor.getActiveEntity()
-        sChar.apiFetch(char.ID, self.__fetchCallback)
+        sChar.apiFetch(char.ID, APIView.fetchCallback)
 
     def addCharacter(self, event):
         sEsi = Esi.getInstance()
@@ -899,7 +899,8 @@ class APIView(wx.Panel):
         if event is not None:
             event.Skip()
 
-    def __fetchCallback(self, e=None):
+    @staticmethod
+    def fetchCallback(e=None):
         if e:
             pyfalog.warn("Error fetching skill information for character for __fetchCallback")
             exc_type, exc_value, exc_trace = e

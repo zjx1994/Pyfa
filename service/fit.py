@@ -354,8 +354,8 @@ class Fit:
                         if not mod.isEmpty:
                             mod.fits(fit)
 
-            # Check that the states of all modules are valid
-            self.checkStates(fit, None)
+                # Check that the states of all modules are valid
+                self.checkStates(fit, None)
 
             eos.db.commit()
             fit.inited = True
